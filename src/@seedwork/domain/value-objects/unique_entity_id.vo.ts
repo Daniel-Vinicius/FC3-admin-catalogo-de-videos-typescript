@@ -1,14 +1,15 @@
 import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 import { InvalidUuidError } from "@seedwork/errors/invalid_uuid.error";
+import { ValueObject } from "./value-object";
 
-export class UniqueEntityId {
-  constructor(public readonly id?: string) {
-    this.id = id || uuidv4();
+export class UniqueEntityId extends ValueObject<string> {
+  constructor(id?: string) {
+    super(id || uuidv4());
     this.validate();
   }
 
   private validate() {
-    const isValid = uuidValidate(this.id);
+    const isValid = uuidValidate(this.value);
     if (!isValid) {
       throw new InvalidUuidError();
     }

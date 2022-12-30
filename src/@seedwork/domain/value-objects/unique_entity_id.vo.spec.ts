@@ -17,14 +17,14 @@ describe("UniqueEntityId Unit Tests", () => {
     const validateSpy = spyValidateMethod();
     const uuid = "6be7293a-7cd3-49f2-8136-0a6c66d1a8f7";
     const valueObject = new UniqueEntityId(uuid);
-    expect(valueObject.id).toEqual(uuid);
+    expect(valueObject.value).toEqual(uuid);
     expect(validateSpy).toHaveBeenCalled();
   });
 
   it("should generate a uuid when nothing is passed", () => {
     const validateSpy = spyValidateMethod();
     const valueObject = new UniqueEntityId();
-    expect(uuidValidate(valueObject.id)).toBeTruthy();
+    expect(uuidValidate(valueObject.value)).toBeTruthy();
     expect(validateSpy).toHaveBeenCalled();
   });
 });
