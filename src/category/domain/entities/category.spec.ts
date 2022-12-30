@@ -27,33 +27,18 @@ describe("Category Unit Tests", () => {
       created_at,
     });
 
-    category = new Category({
-      name: "Movie",
-      description: "other description",
-    });
+    category = new Category({ name: "Movie", description: "description" });
     expect(category.props).toMatchObject({
       name: "Movie",
-      description: "other description",
+      description: "description",
     });
 
-    category = new Category({
-      name: "Movie",
-      is_active: true,
-    });
-    expect(category.props).toMatchObject({
-      name: "Movie",
-      is_active: true,
-    });
+    category = new Category({ name: "Movie", is_active: true });
+    expect(category.props).toMatchObject({ name: "Movie", is_active: true });
 
     created_at = new Date();
-    category = new Category({
-      name: "Movie",
-      created_at,
-    });
-    expect(category.props).toMatchObject({
-      name: "Movie",
-      created_at,
-    });
+    category = new Category({ name: "Movie", created_at });
+    expect(category.props).toMatchObject({ name: "Movie", created_at });
   });
 
   test("id field", () => {
@@ -75,26 +60,25 @@ describe("Category Unit Tests", () => {
     });
   });
 
-  test("getter of name prop", () => {
-    const category = new Category({ name: "Movie" });
+  test("getter and setter of name prop", () => {
+    let category = new Category({ name: "Movie" });
     expect(category.name).toBe("Movie");
+
+    category = new Category({ name: "Movie" });
+    category["name"] = "Other Name";
+    expect(category.name).toBe("Other Name");
+
+    expect(() => (category["name"] = undefined)).toThrow("Name is required");
   });
 
   test("getter and setter of description prop", () => {
-    let category = new Category({
-      name: "Movie",
-    });
+    let category = new Category({ name: "Movie" });
     expect(category.description).toBeNull();
 
-    category = new Category({
-      name: "Movie",
-      description: "some description",
-    });
-    expect(category.description).toBe("some description");
+    category = new Category({ name: "Movie", description: "description" });
+    expect(category.description).toBe("description");
 
-    category = new Category({
-      name: "Movie",
-    });
+    category = new Category({ name: "Movie" });
     category["description"] = "other description";
     expect(category.description).toBe("other description");
 
@@ -103,21 +87,13 @@ describe("Category Unit Tests", () => {
   });
 
   test("getter and setter of is_active prop", () => {
-    let category = new Category({
-      name: "Movie",
-    });
+    let category = new Category({ name: "Movie" });
     expect(category.is_active).toBeTruthy();
 
-    category = new Category({
-      name: "Movie",
-      is_active: true,
-    });
+    category = new Category({ name: "Movie", is_active: true });
     expect(category.is_active).toBeTruthy();
 
-    category = new Category({
-      name: "Movie",
-      is_active: false,
-    });
+    category = new Category({ name: "Movie", is_active: false });
     expect(category.is_active).toBeFalsy();
   });
 
@@ -128,5 +104,32 @@ describe("Category Unit Tests", () => {
     let created_at = new Date();
     category = new Category({ name: "Movie", created_at });
     expect(category.created_at).toBe(created_at);
+  });
+
+  test("update method", () => {
+    const category = new Category({ name: "Comedy", description: "Funny" });
+    expect(category.props).toMatchObject({
+      name: "Comedy",
+      description: "Funny",
+    });
+
+    category.update("Horror", "Fear");
+    expect(category.props).toMatchObject({
+      name: "Horror",
+      description: "Fear",
+    });
+
+    expect(() => category.update("", "")).toThrow("Name is required");
+  });
+
+  test("activate and deactivate methods", () => {
+    const category = new Category({ name: "Comedy", description: "Funny" });
+    expect(category.is_active).toBe(true);
+
+    category.deactivate();
+    expect(category.is_active).toBe(false);
+
+    category.activate();
+    expect(category.is_active).toBe(true);
   });
 });

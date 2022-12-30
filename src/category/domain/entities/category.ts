@@ -20,6 +20,16 @@ export class Category extends Entity<CategoryProperties> {
     return this.props.name;
   }
 
+  private set name(value: string) {
+    if (!value) {
+      const error = new Error("Name is required");
+      error.name = "Entity Category Error";
+      throw error;
+    }
+
+    this.props.name = value;
+  }
+
   get description() {
     return this.props.description;
   }
@@ -38,5 +48,18 @@ export class Category extends Entity<CategoryProperties> {
 
   get created_at() {
     return this.props.created_at;
+  }
+
+  update(name: string, description: string) {
+    this.name = name;
+    this.description = description;
+  }
+
+  activate() {
+    this.is_active = true;
+  }
+
+  deactivate() {
+    this.is_active = false;
   }
 }
