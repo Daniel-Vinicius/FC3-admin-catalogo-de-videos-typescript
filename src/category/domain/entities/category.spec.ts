@@ -3,8 +3,14 @@ import { Category, CategoryProperties } from "./category";
 import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
 
 describe("Category Unit Tests", () => {
+  beforeEach(() => {
+    Category.validate = jest.fn();
+  });
+
   test("constructor of category", () => {
     let category = new Category({ name: "Movie" });
+    expect(Category.validate).toHaveBeenCalled();
+
     let props = omit(category.props, "created_at");
     expect(props).toStrictEqual({
       name: "Movie",
@@ -67,8 +73,6 @@ describe("Category Unit Tests", () => {
     category = new Category({ name: "Movie" });
     category["name"] = "Other Name";
     expect(category.name).toBe("Other Name");
-
-    expect(() => (category["name"] = undefined)).toThrow("Name is required");
   });
 
   test("getter and setter of description prop", () => {
@@ -114,12 +118,11 @@ describe("Category Unit Tests", () => {
     });
 
     category.update("Horror", "Fear");
+    expect(Category.validate).toBeCalledTimes(2);
     expect(category.props).toMatchObject({
       name: "Horror",
       description: "Fear",
     });
-
-    expect(() => category.update("", "")).toThrow("Name is required");
   });
 
   test("activate and deactivate methods", () => {
