@@ -1,5 +1,5 @@
 import { validate as uuidValidate } from "uuid";
-import { InvalidUuidError } from "@seedwork/errors/invalid_uuid.error";
+import { InvalidUuidError } from "@seedwork/domain/errors/invalid_uuid.error";
 import { UniqueEntityId } from "../unique_entity_id.vo";
 
 function spyValidateMethod() {

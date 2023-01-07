@@ -1,6 +1,6 @@
 import { Entity } from "@seedwork/domain/entity/entity";
 import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
-import { ValidatorRules } from "@seedwork/validators/validator_rules";
+import { ValidatorRules } from "@seedwork/domain/validators/validator_rules";
 
 export type CategoryProperties = {
   name: string;
