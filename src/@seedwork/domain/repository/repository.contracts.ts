@@ -45,7 +45,7 @@ export class SearchParams {
       _page = 1;
     }
 
-    this.page = _page;
+    this._page = _page;
   }
 
   get per_page() {
@@ -53,7 +53,7 @@ export class SearchParams {
   }
 
   private set per_page(value: number) {
-    let _per_page = +value;
+    let _per_page = value === (true as any) ? this._per_page : +value;
 
     if (
       Number.isNaN(_per_page) ||
@@ -71,7 +71,7 @@ export class SearchParams {
   }
 
   private set sort(value: string | null) {
-    this.sort =
+    this._sort =
       value === null || value === undefined || value === "" ? null : `${value}`;
   }
 
@@ -81,12 +81,12 @@ export class SearchParams {
 
   private set sort_dir(value: string | null) {
     if (!this.sort) {
-      this.sort_dir = null;
+      this._sort_dir = null;
       return;
     }
 
     const dir = `${value}`.toLowerCase();
-    this.sort_dir = dir !== "asc" && dir !== "desc" ? "asc" : dir;
+    this._sort_dir = dir !== "asc" && dir !== "desc" ? "asc" : dir;
   }
 
   get filter() {
@@ -94,7 +94,7 @@ export class SearchParams {
   }
 
   private set filter(value: string | null) {
-    this.filter =
+    this._filter =
       value === null || value === undefined || value === "" ? null : `${value}`;
   }
 }
