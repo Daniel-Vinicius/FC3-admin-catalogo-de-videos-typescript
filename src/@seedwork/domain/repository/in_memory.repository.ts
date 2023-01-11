@@ -4,6 +4,8 @@ import { UniqueEntityId } from "../value-objects/unique_entity_id.vo";
 import {
   RepositoryInterface,
   SearchableRepositoryInterface,
+  SearchParams,
+  SearchResult,
 } from "./repository.contracts";
 
 export abstract class InMemoryRepository<E extends Entity>
@@ -50,9 +52,44 @@ export abstract class InMemoryRepository<E extends Entity>
 
 export abstract class InMemorySearchableRepository<E extends Entity>
   extends InMemoryRepository<E>
-  implements SearchableRepositoryInterface<E, any, any>
+  implements SearchableRepositoryInterface<E>
 {
-  search(props: any): Promise<any> {
-    throw new Error("Method not implemented.");
+  async search(props: SearchParams): Promise<SearchResult<E>> {
+    const { filter, sort, sort_dir, page, per_page } = props;
+
+    const itemsFiltered = await this.applyFilter(this.items, filter);
+    const itemsSorted = await this.applySort(itemsFiltered, sort, sort_dir);
+    const itemsPaginated = await this.applyPaginate(
+      itemsSorted,
+      page,
+      per_page
+    );
+
+    return new SearchResult({
+      items: itemsPaginated,
+      total: itemsFiltered.length,
+      current_page: page,
+      per_page,
+      sort,
+      sort_dir,
+      filter,
+    });
   }
+
+  protected abstract applyFilter(
+    items: E[],
+    filter: string | null
+  ): Promise<E[]>;
+
+  protected abstract applySort(
+    items: E[],
+    sort: string | null,
+    sort_dir: string | null
+  ): Promise<E[]>;
+
+  protected abstract applyPaginate(
+    items: E[],
+    page: SearchParams["page"],
+    per_page: SearchParams["per_page"]
+  ): Promise<E[]>;
 }
