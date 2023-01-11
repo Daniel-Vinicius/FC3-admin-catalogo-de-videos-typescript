@@ -70,7 +70,34 @@ describe("InMemorySearchableRepository Unit Tests", () => {
     });
   });
 
-  describe("applySort method", () => {});
+  describe("applySort method", () => {
+    it("should not sort items", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 30 }),
+        new StubEntity({ name: "a", price: 20 }),
+      ];
+
+      let itemsSorted = await repository["applySort"](items, null, null);
+      expect(itemsSorted).toStrictEqual(items);
+
+      itemsSorted = await repository["applySort"](items, "price", "asc");
+      expect(itemsSorted).toStrictEqual(items);
+    });
+
+    it("should sort items", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 5 }),
+        new StubEntity({ name: "a", price: 5 }),
+        new StubEntity({ name: "c", price: 5 }),
+      ];
+
+      let itemsSorted = await repository["applySort"](items, "name", "asc");
+      expect(itemsSorted).toStrictEqual([items[1], items[0], items[2]]);
+
+      itemsSorted = await repository["applySort"](items, "name", "desc");
+      expect(itemsSorted).toStrictEqual([items[2], items[0], items[1]]);
+    });
+  });
 
   describe("applyPaginate method", () => {});
 
