@@ -6,6 +6,7 @@ import {
   SearchableRepositoryInterface,
   SearchParams,
   SearchResult,
+  SortDirection,
 } from "./repository.contracts";
 
 export abstract class InMemoryRepository<E extends Entity>
@@ -54,6 +55,8 @@ export abstract class InMemorySearchableRepository<E extends Entity>
   extends InMemoryRepository<E>
   implements SearchableRepositoryInterface<E>
 {
+  sortableFields: string[] = [];
+
   async search(props: SearchParams): Promise<SearchResult<E>> {
     const { filter, sort, sort_dir, page, per_page } = props;
 
@@ -81,15 +84,42 @@ export abstract class InMemorySearchableRepository<E extends Entity>
     filter: string | null
   ): Promise<E[]>;
 
-  protected abstract applySort(
+  protected async applySort(
     items: E[],
     sort: string | null,
-    sort_dir: string | null
-  ): Promise<E[]>;
+    sort_dir: SortDirection | null
+  ): Promise<E[]> {
+    const isSortable = sort && this.sortableFields.includes(sort);
 
-  protected abstract applyPaginate(
+    function doSort() {
+      return [...items].sort((a, b) => {
+        if (a.props[sort] < b.props[sort]) {
+          return sort_dir === "asc" ? -1 : 1;
+        }
+
+        if (a.props[sort] > b.props[sort]) {
+          return sort_dir === "asc" ? 1 : -1;
+        }
+
+        return 0;
+      });
+    }
+
+    if (isSortable) {
+      return doSort();
+    }
+
+    return items;
+  }
+
+  protected async applyPaginate(
     items: E[],
     page: SearchParams["page"],
     per_page: SearchParams["per_page"]
-  ): Promise<E[]>;
+  ): Promise<E[]> {
+    const start = (page - 1) * per_page; // 1 * 15 = 15
+    const limit = start + per_page; // 15 + 15 = 30
+
+    return items.slice(start, limit);
+  }
 }

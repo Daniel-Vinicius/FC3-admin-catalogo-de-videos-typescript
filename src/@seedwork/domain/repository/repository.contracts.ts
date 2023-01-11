@@ -75,7 +75,7 @@ export class SearchParams {
       value === null || value === undefined || value === "" ? null : `${value}`;
   }
 
-  get sort_dir(): string | null {
+  get sort_dir(): SortDirection | null {
     return this._sort_dir;
   }
 
@@ -105,7 +105,7 @@ type SearchResultProps<E extends Entity, Filter> = {
   current_page: number;
   per_page: number;
   sort: string | null;
-  sort_dir: string | null;
+  sort_dir: SortDirection | null;
   filter: Filter | null;
 };
 
@@ -116,7 +116,7 @@ export class SearchResult<E extends Entity, Filter = string> {
   readonly per_page: number;
   readonly last_page: number;
   readonly sort: string | null;
-  readonly sort_dir: string | null;
+  readonly sort_dir: SortDirection | null;
   readonly filter: Filter;
 
   constructor(props: SearchResultProps<E, Filter>) {
@@ -150,5 +150,6 @@ export interface SearchableRepositoryInterface<
   SearchInput = SearchParams,
   SearchOutput = SearchResult<E, Filter>
 > extends RepositoryInterface<E> {
+  sortableFields: string[];
   search(props: SearchInput): Promise<SearchOutput>;
 }
