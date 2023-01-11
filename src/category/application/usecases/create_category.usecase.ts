@@ -1,5 +1,6 @@
 import { Category } from "category/domain/entities/category";
 import { CategoryRepository } from "category/domain/repository/category.repository";
+import { CategoryOutputDTO } from "../dtos/category_output.dto";
 
 export type Input = {
   name: string;
@@ -7,13 +8,7 @@ export type Input = {
   is_active?: boolean;
 };
 
-export type Output = {
-  id: string;
-  name: string;
-  description: string | null;
-  is_active: boolean;
-  created_at: Date;
-};
+export type Output = CategoryOutputDTO;
 
 export class CreateCategoryUseCase {
   constructor(private categoryRepository: CategoryRepository.Repository) {}

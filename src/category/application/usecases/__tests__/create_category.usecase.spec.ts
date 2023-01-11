@@ -1,7 +1,7 @@
 import { CategoryInMemoryRepository } from "category/infra/repository/category_in_memory.repository";
 import { CreateCategoryUseCase } from "category/application/usecases/create_category.usecase";
 
-describe("CreateCategoryUseCase", () => {
+describe("CreateCategoryUseCase Unit Tests", () => {
   let categoryRepository: CategoryInMemoryRepository;
   let useCase: CreateCategoryUseCase;
 
@@ -42,9 +42,9 @@ describe("CreateCategoryUseCase", () => {
 
   testCases.forEach(({ name, input, output }) => {
     test(name, async () => {
-      const spy = jest.spyOn(categoryRepository, "insert");
+      const spyInsert = jest.spyOn(categoryRepository, "insert");
       const result = await useCase.execute(input);
-      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spyInsert).toHaveBeenCalledTimes(1);
 
       const { id, created_at } = categoryRepository.items.find(
         (item) => item.name === output.name
