@@ -1,5 +1,8 @@
 import { omit } from "lodash";
-import { Category, CategoryProperties } from "./category";
+import {
+  Category,
+  CategoryProperties,
+} from "@category/domain/entities/category";
 import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
 
 describe("Category Unit Tests", () => {

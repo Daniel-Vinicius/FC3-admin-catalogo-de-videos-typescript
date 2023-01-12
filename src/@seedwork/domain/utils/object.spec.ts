@@ -1,4 +1,4 @@
-import { deepFreeze } from "./object";
+import { deepFreeze } from "@seedwork/domain/utils/object";
 
 describe("object Unit Tests", () => {
   describe("deepFreeze", () => {

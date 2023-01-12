@@ -1,4 +1,4 @@
-import { Category } from "../entities/category";
+import { Category } from "@category/domain/entities/category";
 
 import {
   SearchableRepositoryInterface,

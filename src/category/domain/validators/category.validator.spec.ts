@@ -1,9 +1,9 @@
-import { CategoryProperties } from "../entities/category";
+import { CategoryProperties } from "@category/domain/entities/category";
 import {
   CategoryRules,
   CategoryValidator,
   CategoryValidatorFactory,
-} from "./category.validator";
+} from "@category/domain/validators/category.validator";
 
 describe("CategoryValidator Tests", () => {
   let validator: CategoryValidator;

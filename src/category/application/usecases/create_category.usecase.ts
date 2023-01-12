@@ -1,10 +1,10 @@
 import { UseCase } from "@seedwork/application/usecase";
-import { Category } from "category/domain/entities/category";
-import { CategoryRepository } from "category/domain/repository/category.repository";
+import { Category } from "@category/domain/entities/category";
+import { CategoryRepository } from "@category/domain/repository/category.repository";
 import {
   CategoryOutputDTO,
   CategoryOutputMapper,
-} from "../dtos/category_output.dto";
+} from "@category/application/dtos/category_output.dto";
 
 export type Input = {
   name: string;

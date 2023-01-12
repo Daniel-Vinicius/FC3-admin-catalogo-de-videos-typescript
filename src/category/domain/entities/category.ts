@@ -2,7 +2,7 @@ import { Entity } from "@seedwork/domain/entity/entity";
 import { EntityValidationError } from "@seedwork/domain/errors/validation.error";
 import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
 
-import { CategoryValidatorFactory } from "../validators/category.validator";
+import { CategoryValidatorFactory } from "@category/domain/validators/category.validator";
 
 export type CategoryProperties = {
   name: string;

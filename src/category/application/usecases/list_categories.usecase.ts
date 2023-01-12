@@ -1,5 +1,5 @@
 import { UseCase } from "@seedwork/application/usecase";
-import { CategoryRepository } from "category/domain/repository/category.repository";
+import { CategoryRepository } from "@category/domain/repository/category.repository";
 
 import { SearchInputDTO } from "@seedwork/application/dtos/search_input.dto";
 
@@ -7,7 +7,7 @@ import { PaginationOutputDTO } from "@seedwork/application/dtos/pagination_outpu
 import {
   CategoryOutputDTO,
   CategoryOutputMapper,
-} from "../dtos/category_output.dto";
+} from "@category/application/dtos/category_output.dto";
 
 export type Input = SearchInputDTO<CategoryRepository.Filter>;
 export type Output = PaginationOutputDTO<CategoryOutputDTO>;

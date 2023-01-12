@@ -1,5 +1,5 @@
 import { UseCase } from "@seedwork/application/usecase";
-import { CategoryRepository } from "category/domain/repository/category.repository";
+import { CategoryRepository } from "@category/domain/repository/category.repository";
 
 export type Input = {
   id: string;

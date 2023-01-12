@@ -1,6 +1,6 @@
 import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 import { InvalidUuidError } from "@seedwork/domain/errors/invalid_uuid.error";
-import { ValueObject } from "./value-object";
+import { ValueObject } from "@seedwork/domain/value-objects/value-object";
 
 export class UniqueEntityId extends ValueObject<string> {
   constructor(id?: string) {

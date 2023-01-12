@@ -1,4 +1,4 @@
-import { FieldsErrors } from "./@seedwork/domain/validators/validator_fields.interface";
+import { FieldsErrors } from "@seedwork/domain/validators/validator_fields.interface";
 
 declare global {
   namespace jest {
