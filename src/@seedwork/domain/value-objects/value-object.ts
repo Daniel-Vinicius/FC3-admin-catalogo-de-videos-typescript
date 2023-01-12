@@ -13,11 +13,7 @@ export abstract class ValueObject<Value = any> {
 
   toString = () => {
     if (typeof this.value !== "object" || this.value === null) {
-      try {
-        return this.value.toString();
-      } catch {
-        return this.value + "";
-      }
+      return this.value.toString();
     }
 
     const valueStr = this.value.toString();
