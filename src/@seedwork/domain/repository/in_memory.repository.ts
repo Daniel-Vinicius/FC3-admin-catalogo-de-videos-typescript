@@ -35,7 +35,7 @@ export abstract class InMemoryRepository<E extends Entity>
   }
 
   protected async _get(id: string): Promise<E> {
-    const entity: E = this.items.find((item) => item.id === id);
+    const entity = this.items.find((item) => item.id === id);
 
     if (!entity) {
       throw new NotFoundError(`Entity Not Found using ID ${id}`);

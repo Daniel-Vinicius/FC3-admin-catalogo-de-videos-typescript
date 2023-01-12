@@ -20,11 +20,11 @@ export type SearchProps<Filter = string> = {
 };
 
 export class SearchParams<Filter = string> {
-  protected _page: number;
+  protected _page: number = 1;
   protected _per_page: number = 15;
-  protected _sort: string | null;
-  protected _sort_dir: SortDirection | null;
-  protected _filter: Filter | null;
+  protected _sort: string | null = null;
+  protected _sort_dir: SortDirection | null = null;
+  protected _filter: Filter | null = null;
 
   constructor(props: SearchProps<Filter> = {}) {
     this.page = props.page;
