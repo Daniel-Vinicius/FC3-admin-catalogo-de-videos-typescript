@@ -1,12 +1,12 @@
-import { Entity } from "@seedwork/domain/entity/entity";
-import { InMemoryRepository } from "@seedwork/domain/repository/in_memory.repository";
+import { Entity } from "@seedwork/domain/entity";
 
 import {
+  InMemoryRepository,
   SearchableRepositoryInterface,
   SearchParams,
   SearchResult,
   SortDirection,
-} from "@seedwork/domain/repository/repository.contracts";
+} from "@seedwork/domain/repository";
 
 export abstract class InMemorySearchableRepository<E extends Entity>
   extends InMemoryRepository<E>

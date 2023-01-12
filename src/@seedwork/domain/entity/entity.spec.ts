@@ -1,7 +1,5 @@
 import { validate as uuidValidate } from "uuid";
-
-import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
-import { Entity } from "@seedwork/domain/entity/entity";
+import { Entity, UniqueEntityId } from "@seedwork/domain";
 
 class StubEntity extends Entity<{ prop1: string; prop2: number }> {}
 

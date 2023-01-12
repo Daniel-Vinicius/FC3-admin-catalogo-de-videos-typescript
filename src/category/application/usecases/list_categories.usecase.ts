@@ -9,13 +9,20 @@ import {
   CategoryOutputMapper,
 } from "@category/application/dtos/category_output.dto";
 
-export type Input = SearchInputDTO<CategoryRepository.Filter>;
-export type Output = PaginationOutputDTO<CategoryOutputDTO>;
+export type InputListCategoriesUseCase =
+  SearchInputDTO<CategoryRepository.Filter>;
 
-export class ListCategoriesUseCase implements UseCase<Input, Output> {
+export type OutputListCategoriesUseCase =
+  PaginationOutputDTO<CategoryOutputDTO>;
+
+export class ListCategoriesUseCase
+  implements UseCase<InputListCategoriesUseCase, OutputListCategoriesUseCase>
+{
   constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute(input: Input): Promise<Output> {
+  async execute(
+    input: InputListCategoriesUseCase
+  ): Promise<OutputListCategoriesUseCase> {
     const params = new CategoryRepository.SearchParams(input);
 
     const searchResult = await this.categoryRepository.search(params);

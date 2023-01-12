@@ -6,18 +6,24 @@ import {
   CategoryOutputMapper,
 } from "@category/application/dtos/category_output.dto";
 
-export type Input = {
+export type InputCreateCategoryUseCase = {
   name: string;
   description?: string;
   is_active?: boolean;
 };
 
-export type Output = CategoryOutputDTO;
+export type OutputCreateCategoryUseCase = CategoryOutputDTO;
 
-export class CreateCategoryUseCase implements UseCase<Input, Output> {
+export class CreateCategoryUseCase
+  implements UseCase<InputCreateCategoryUseCase, OutputCreateCategoryUseCase>
+{
   constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute({ name, description, is_active }: Input): Promise<Output> {
+  async execute({
+    name,
+    description,
+    is_active,
+  }: InputCreateCategoryUseCase): Promise<OutputCreateCategoryUseCase> {
     const entity = new Category({
       name,
       description,

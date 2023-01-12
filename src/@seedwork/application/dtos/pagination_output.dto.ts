@@ -1,4 +1,4 @@
-import { SortDirection } from "@seedwork/domain/repository/repository.contracts";
+import { SortDirection } from "@seedwork/domain/repository";
 
 export type PaginationOutputDTO<Item> = {
   items: Item[];

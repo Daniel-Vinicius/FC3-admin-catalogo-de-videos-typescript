@@ -1,7 +1,5 @@
-import { Entity } from "@seedwork/domain/entity/entity";
-import { NotFoundError } from "@seedwork/domain/errors/not_found.error";
-import { UniqueEntityId } from "@seedwork/domain/value-objects/unique_entity_id.vo";
-import { RepositoryInterface } from "@seedwork/domain/repository/repository.contracts";
+import { Entity, NotFoundError, UniqueEntityId } from "@seedwork/domain";
+import { RepositoryInterface } from "@seedwork/domain/repository";
 
 export abstract class InMemoryRepository<E extends Entity>
   implements RepositoryInterface<E>

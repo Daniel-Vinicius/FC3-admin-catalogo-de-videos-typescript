@@ -5,16 +5,20 @@ import {
   CategoryOutputMapper,
 } from "@category/application/dtos/category_output.dto";
 
-export type Input = {
+export type InputGetCategoryUseCase = {
   id: string;
 };
 
-export type Output = CategoryOutputDTO;
+export type OutputGetCategoryUseCase = CategoryOutputDTO;
 
-export class GetCategoryUseCase implements UseCase<Input, Output> {
+export class GetCategoryUseCase
+  implements UseCase<InputGetCategoryUseCase, OutputGetCategoryUseCase>
+{
   constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute({ id }: Input): Promise<Output> {
+  async execute({
+    id,
+  }: InputGetCategoryUseCase): Promise<OutputGetCategoryUseCase> {
     const category = await this.categoryRepository.findById(id);
     return CategoryOutputMapper.toOutputDTO(category);
   }
