@@ -1,6 +1,9 @@
 import { UseCase } from "@seedwork/application/usecase";
 import { CategoryRepository } from "category/domain/repository/category.repository";
-import { CategoryOutputDTO } from "../dtos/category_output.dto";
+import {
+  CategoryOutputDTO,
+  CategoryOutputMapper,
+} from "../dtos/category_output.dto";
 
 export type Input = {
   id: string;
@@ -13,6 +16,6 @@ export class GetCategoryUseCase implements UseCase<Input, Output> {
 
   async execute({ id }: Input): Promise<Output> {
     const category = await this.categoryRepository.findById(id);
-    return category.toJSON();
+    return CategoryOutputMapper.toOutputDTO(category);
   }
 }

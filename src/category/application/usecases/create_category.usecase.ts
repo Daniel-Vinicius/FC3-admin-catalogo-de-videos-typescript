@@ -1,7 +1,10 @@
 import { UseCase } from "@seedwork/application/usecase";
 import { Category } from "category/domain/entities/category";
 import { CategoryRepository } from "category/domain/repository/category.repository";
-import { CategoryOutputDTO } from "../dtos/category_output.dto";
+import {
+  CategoryOutputDTO,
+  CategoryOutputMapper,
+} from "../dtos/category_output.dto";
 
 export type Input = {
   name: string;
@@ -23,12 +26,6 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
 
     await this.categoryRepository.insert(entity);
 
-    return {
-      id: entity.id,
-      name: entity.name,
-      description: entity.description,
-      is_active: entity.is_active,
-      created_at: entity.created_at,
-    };
+    return CategoryOutputMapper.toOutputDTO(entity);
   }
 }
