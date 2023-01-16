@@ -1,28 +1,19 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "incremental": true,
-    "target": "es2017",
-    "experimentalDecorators": true,
-    "module": "commonjs",
     "baseUrl": "./src",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": false,
-    "skipLibCheck": true,
+    "outDir": "./dist",
     "paths": {
       "@seedwork/*": ["./@seedwork/*"],
       "@category/*": ["./category/*"]
     },
-    "outDir": "./dist",
     "plugins": [
       // Transform paths in output .js files
       { "transform": "typescript-transform-paths" },
 
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ],
-    "declaration": true
+    ]
   },
-  "include": ["src/"]
+  "include": ["./src/"]
 }

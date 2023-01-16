@@ -1,6 +1,6 @@
 import { UseCase } from "@seedwork/application/usecase";
-import { Category } from "@category/domain/entities/category";
-import { CategoryRepository } from "@category/domain/repository/category.repository";
+import { Category, CategoryRepository } from "@category/domain";
+
 import {
   CategoryOutputDTO,
   CategoryOutputMapper,
