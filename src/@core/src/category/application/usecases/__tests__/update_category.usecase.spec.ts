@@ -5,11 +5,11 @@ import { Category } from "@category/domain/entities/category";
 
 describe("UpdateCategoryUseCase Unit Tests", () => {
   let categoryRepository: CategoryInMemoryRepository;
-  let useCase: UpdateCategoryUseCase;
+  let useCase: UpdateCategoryUseCase.UseCase;
 
   beforeEach(() => {
     categoryRepository = new CategoryInMemoryRepository();
-    useCase = new UpdateCategoryUseCase(categoryRepository);
+    useCase = new UpdateCategoryUseCase.UseCase(categoryRepository);
   });
 
   it("should throws error when category not found", async () => {

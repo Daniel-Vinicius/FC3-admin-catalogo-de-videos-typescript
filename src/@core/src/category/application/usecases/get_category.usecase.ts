@@ -1,25 +1,24 @@
-import { UseCase } from "@seedwork/application/usecase";
+import { UseCase as DefaultUseCase } from "@seedwork/application/usecase";
 import { CategoryRepository } from "@category/domain/repository/category.repository";
+
 import {
   CategoryOutputDTO,
   CategoryOutputMapper,
 } from "@category/application/dtos/category_output.dto";
 
-export type InputGetCategoryUseCase = {
-  id: string;
-};
+export namespace GetCategoryUseCase {
+  export type Input = {
+    id: string;
+  };
 
-export type OutputGetCategoryUseCase = CategoryOutputDTO;
+  export type Output = CategoryOutputDTO;
 
-export class GetCategoryUseCase
-  implements UseCase<InputGetCategoryUseCase, OutputGetCategoryUseCase>
-{
-  constructor(private categoryRepository: CategoryRepository.Repository) {}
+  export class UseCase implements DefaultUseCase<Input, Output> {
+    constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute({
-    id,
-  }: InputGetCategoryUseCase): Promise<OutputGetCategoryUseCase> {
-    const category = await this.categoryRepository.findById(id);
-    return CategoryOutputMapper.toOutputDTO(category);
+    async execute({ id }: Input): Promise<Output> {
+      const category = await this.categoryRepository.findById(id);
+      return CategoryOutputMapper.toOutputDTO(category);
+    }
   }
 }

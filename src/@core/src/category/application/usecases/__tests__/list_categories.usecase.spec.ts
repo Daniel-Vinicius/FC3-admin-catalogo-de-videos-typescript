@@ -4,11 +4,11 @@ import { Category } from "@category/domain/entities/category";
 
 describe("ListCategoriesUseCase Unit Tests", () => {
   let categoryRepository: CategoryInMemoryRepository;
-  let useCase: ListCategoriesUseCase;
+  let useCase: ListCategoriesUseCase.UseCase;
 
   beforeEach(() => {
     categoryRepository = new CategoryInMemoryRepository();
-    useCase = new ListCategoriesUseCase(categoryRepository);
+    useCase = new ListCategoriesUseCase.UseCase(categoryRepository);
   });
 
   it("should returns output using empty input with categories ordered by created_at", async () => {

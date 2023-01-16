@@ -1,4 +1,4 @@
-import { UseCase } from "@seedwork/application/usecase";
+import { UseCase as DefaultUseCase } from "@seedwork/application/usecase";
 import { CategoryRepository } from "@category/domain/repository/category.repository";
 
 import { SearchInputDTO } from "@seedwork/application/dtos/search_input.dto";
@@ -9,31 +9,27 @@ import {
   CategoryOutputMapper,
 } from "@category/application/dtos/category_output.dto";
 
-export type InputListCategoriesUseCase =
-  SearchInputDTO<CategoryRepository.Filter>;
+export namespace ListCategoriesUseCase {
+  export type Input = SearchInputDTO<CategoryRepository.Filter>;
 
-export type OutputListCategoriesUseCase =
-  PaginationOutputDTO<CategoryOutputDTO>;
+  export type Output = PaginationOutputDTO<CategoryOutputDTO>;
 
-export class ListCategoriesUseCase
-  implements UseCase<InputListCategoriesUseCase, OutputListCategoriesUseCase>
-{
-  constructor(private categoryRepository: CategoryRepository.Repository) {}
+  export class UseCase implements DefaultUseCase<Input, Output> {
+    constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute(
-    input: InputListCategoriesUseCase
-  ): Promise<OutputListCategoriesUseCase> {
-    const params = new CategoryRepository.SearchParams(input);
+    async execute(input: Input): Promise<Output> {
+      const params = new CategoryRepository.SearchParams(input);
 
-    const searchResult = await this.categoryRepository.search(params);
+      const searchResult = await this.categoryRepository.search(params);
 
-    const categories = searchResult.items.map((category) =>
-      CategoryOutputMapper.toOutputDTO(category)
-    );
+      const categories = searchResult.items.map((category) =>
+        CategoryOutputMapper.toOutputDTO(category)
+      );
 
-    return {
-      ...searchResult,
-      items: categories,
-    };
+      return {
+        ...searchResult,
+        items: categories,
+      };
+    }
   }
 }

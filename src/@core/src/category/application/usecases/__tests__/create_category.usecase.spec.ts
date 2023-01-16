@@ -3,11 +3,11 @@ import { CreateCategoryUseCase } from "@category/application/usecases/create_cat
 
 describe("CreateCategoryUseCase Unit Tests", () => {
   let categoryRepository: CategoryInMemoryRepository;
-  let useCase: CreateCategoryUseCase;
+  let useCase: CreateCategoryUseCase.UseCase;
 
   beforeEach(() => {
     categoryRepository = new CategoryInMemoryRepository();
-    useCase = new CreateCategoryUseCase(categoryRepository);
+    useCase = new CreateCategoryUseCase.UseCase(categoryRepository);
   });
 
   const testCases = [

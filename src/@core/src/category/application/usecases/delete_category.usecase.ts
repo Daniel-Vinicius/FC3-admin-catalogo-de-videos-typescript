@@ -1,20 +1,18 @@
-import { UseCase } from "@seedwork/application/usecase";
+import { UseCase as DefaultUseCase } from "@seedwork/application/usecase";
 import { CategoryRepository } from "@category/domain/repository/category.repository";
 
-export type InputDeleteCategoryUseCase = {
-  id: string;
-};
+export namespace DeleteCategoryUseCase {
+  export type Input = {
+    id: string;
+  };
 
-export type OutputDeleteCategoryUseCase = void;
+  export type Output = void;
 
-export class DeleteCategoryUseCase
-  implements UseCase<InputDeleteCategoryUseCase, OutputDeleteCategoryUseCase>
-{
-  constructor(private categoryRepository: CategoryRepository.Repository) {}
+  export class UseCase implements DefaultUseCase<Input, Output> {
+    constructor(private categoryRepository: CategoryRepository.Repository) {}
 
-  async execute({
-    id,
-  }: InputDeleteCategoryUseCase): Promise<OutputDeleteCategoryUseCase> {
-    await this.categoryRepository.delete(id);
+    async execute({ id }: Input): Promise<Output> {
+      await this.categoryRepository.delete(id);
+    }
   }
 }
