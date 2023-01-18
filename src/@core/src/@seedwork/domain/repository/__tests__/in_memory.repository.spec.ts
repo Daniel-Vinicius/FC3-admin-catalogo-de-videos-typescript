@@ -23,14 +23,15 @@ describe("InMemoryRepository Unit Tests", () => {
     expect(entity.toJSON()).toStrictEqual(repository.items[0].toJSON());
   });
 
-  it("should throws error when entity not found", () => {
+  it("should throws error when entity not found", async () => {
     const id = "fake id";
-    expect(repository.findById(id)).rejects.toThrow(
+
+    await expect(repository.findById(id)).rejects.toThrow(
       new NotFoundError(`Entity Not Found using ID ${id}`)
     );
 
     const vo_id = new UniqueEntityId();
-    expect(repository.findById(vo_id)).rejects.toThrow(
+    await expect(repository.findById(vo_id)).rejects.toThrow(
       new NotFoundError(`Entity Not Found using ID ${vo_id.value}`)
     );
   });
