@@ -61,6 +61,9 @@
   "dependencies": {
     "class-validator": "^0.14.0",
     "lodash": "^4.17.21",
+    "sequelize": "^6.28.0",
+    "sequelize-typescript": "^2.1.5",
+    "sqlite3": "^5.1.4",
     "uuid": "^9.0.0"
   }
 }
